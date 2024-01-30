@@ -10,6 +10,17 @@
  - Since this class functions include some 'echo' functions, your PHP console can show some messages.
    If you want to get rid of them, you can delete their original 'echo' functions.
 
+<h2>Setting Up</h2>
+
+<h3>Config File</h3>
+
+ - This library needs a JSON config file which contains information about your discord bot.
+ - The file name must be 'config.json'.
+ - The file must be located right in the library folder.
+ - The file must contain these keys and according values: "token", "app_id", and "guild_id".
+ - "token" means your Bot Token and "app_id" means your Bot Application ID. Both can be viewd at your Discord
+   Developer Portal.
+
 <h2>Functions</h2>
 
 <h3>OnEvent()</h3>
