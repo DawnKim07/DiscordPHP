@@ -3,12 +3,15 @@
  - Class 'Discord' is consisted of class itself and every subclasses needed for this library.
  - The title class(\Discord) builds The Gateway API(https://discord.com/developers/docs/topics/gateway)
    needed for the entire bot run.
- - This library assumes that your bot includes all privileged intents: 'GUILD_PRESENCES', "GUILD_MEMBERS', and
-   'MESSAGE_CONTENT'.
+ - This library assumes that your bot includes all privileged intents: 'GUILD_PRESENCES', "GUILD_MEMBERS', and 'MESSAGE_CONTENT'.
  - Sending more than 120 Gateway requests in every 60 seconds can make your bot rate limited by Discord Server.
  - This library does not support bot server sharding.
  - Since this class functions include some 'echo' functions, your PHP console can show some messages.
    If you want to get rid of them, you can delete their original 'echo' functions.
+
+## SubClasses
+
+ - [Discord\AppCommand](#discord-appcommand)
 
 ## Setting Up
 
@@ -18,8 +21,7 @@
  - The file name must be 'config.json'.
  - The file must be located right in the library folder.
  - The file must contain these keys and according values: "token", "app_id", and "guild_id".
- - "token" means your Bot Token and "app_id" means your Bot Application ID. Both can be viewd at your Discord
-   Developer Portal.
+ - "token" means your Bot Token and "app_id" means your Bot Application ID. Both can be viewd at your Discord Developer Portal.
 
 ### Library Contained
 
@@ -50,7 +52,7 @@
    Every code after this function may get ignored or cause errors.
 
 
-# Discord\AppCommand
+# <a id="discord-appcommand">Discord\AppCommand</a>
 
 ## Attributes
 
@@ -76,3 +78,4 @@
  - **[CHAT_INPUT | 1]** : Slash commands; a text-based command that shows up when a user types /
  - **[USER | 2]** : A UI-based command that shows up when you right click or tap on a user
  - **[MESSAGE | 3]** : A UI-based command that shows up when you right click or tap on a message
+
