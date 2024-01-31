@@ -100,10 +100,10 @@
  - guild_id : **[string|snowflake]** Guild ID of the command, if not global
  - name: **[string]** 	Name of command, 1-32 characters. Must match the following regex:
    **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
- - name_localizations : **[dictionary|[Available Locales](#locales)]** Localization dictionary for name field. Values follow the same restrictions as name
+ - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for name field. Values follow the same restrictions as name
  - description : **[string]** Description for CHAT_INPUT commands, 1-100 characters. Empty string for USER and MESSAGE commands
- - description_localization : **[dictionary|[Available Locales](#locales)]** Localization dictionary for description field. Values follow the same restrictions as description
- - options : **[array|Application Command Option]** Parameters for the command, max of 25. Only valid for CHAT_INPUT app commands.
+ - description_localization : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for description field. Values follow the same restrictions as description
+ - options : **[array]** Array of [Application Command Option](#discord-appcommand-options) objects. Parameters for the command, max of 25. Only valid for CHAT_INPUT app commands.
  - default_member_permissions : **[string]** Set of permissions represented as a bit set. To disable the command for everyone except admins by default, set this attribute value to "0".
  - dm_permission : **[bool]** Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
  - nsfw : **[bool]** Indicates whether the command is age-restricted, defaults to false
@@ -117,3 +117,39 @@
  - **"USER | 2"** : A UI-based command that shows up when you right click or tap on a user
  - **"MESSAGE | 3"** : A UI-based command that shows up when you right click or tap on a message
 
+## <a id="discord-appcommand-options">Discord\AppCommand\Options</a>
+
+### Attributes
+
+ - type : **[int|[Application Command Option Type](#application-command-option-type)]** Type of option
+ - name : **[string]** 	1-32 character name. Must match the following regex: **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
+ - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the name field. Values follow the same restrictions as name
+ - description : **[string]** 1-100 character description
+ - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the description field. Values follow the same restrictions as description
+ - required : **[bool]** If the parameter is required or optional--default false
+ - choices : **[array]** Array of [Discord\AppCommand\Options\Choices](#discord-appcommand-options-choices) objects. Choices for STRING, INTEGER, and NUMBER types for the user to pick from, max 25
+ - options : **[array]** Array of [Discord\AppCommand\Options](#discord-appcommand-options) objects. If the option is a subcommand or subcommand group type, these nested options will be the parameters
+ - channel_type : **[array]** Array of [Channel Types](#channel-types) numbers(int). If the option is a channel type, the channels shown will be restricted to these types
+ - min_value : **[int|float]** Int for 'INTEGER' options, float for 'NUMBER' options. If the option is an INTEGER or NUMBER type, the minimum value permitted
+ - max_value : **[int|float]** Int for 'INTEGER' options, float for 'NUMBER' options. If the option is an INTEGER or NUMBER type, the maximum value permitted
+ - min_length : **[int]**	For option type STRING, the minimum allowed length (minimum of 0, maximum of 6000)
+ - max_length : **[int]** For option type STRING, the maximum allowed length (minimum of 1, maximum of 6000)
+ - autocomplete : **[bool]** If autocomplete interactions are enabled for this STRING, INTEGER, or NUMBER type option
+
+### Special Values
+
+#### <a id="application-command-option-type">Application Command Option Type [int]</a>
+
+ - **"SUB_COMMAND | 1"**
+ - **"SUB_COMMAND_GROUP | 2"**
+ - **"STRING | 3"**
+ - **"INTEGER | 4"** : Any Integer between -2^53 and 2^53
+ - **"BOOLEAN | 5"**
+ - **"USER | 6"**
+ - **"CHANNEL | 7"** : Includes all channel types & categories
+ - **"ROLE | 8"**
+ - **"MENTIONABLE | 9"** : Refers to users and roles
+ - **"NUMBER | 10"** : Any float between -2^53 and 2^53
+ - **"ATTACHMENT | 11"** : [Discord\Channel\Message\Attachments](#discord-channel-message-attachments) object
+
+## <a id="discord-appcommand-options-choices">Discord\AppCommand\Options\Choices</a>
