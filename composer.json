@@ -1,0 +1,6 @@
+{
+    "require": {
+        "react/http": "1.9",
+        "ratchet/pawl": "^0.4.1"
+    }
+}
