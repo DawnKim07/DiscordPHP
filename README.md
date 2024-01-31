@@ -1,4 +1,4 @@
-<h1>Discord</h1>
+# Discord
 
  - Class 'Discord' is consisted of class itself and every subclasses needed for this library.
  - The title class(\Discord) builds The Gateway API(https://discord.com/developers/docs/topics/gateway)
@@ -10,9 +10,9 @@
  - Since this class functions include some 'echo' functions, your PHP console can show some messages.
    If you want to get rid of them, you can delete their original 'echo' functions.
 
-<h2>Setting Up</h2>
+## Setting Up
 
-<h3>Config File</h3>
+### Config File
 
  - This library needs a JSON config file which contains information about your discord bot.
  - The file name must be 'config.json'.
@@ -21,22 +21,28 @@
  - "token" means your Bot Token and "app_id" means your Bot Application ID. Both can be viewd at your Discord
    Developer Portal.
 
-<h3>Library Contained</h3>
+### Library Contained
 
  - This library contains the library 'ReactPHP'.
  - You can see more infos here: https://github.com/reactphp
 
-<h2>Functions</h2>
+## Functions
 
-<h3>OnEvent()</h3>
+### OnEvent()
 
  - Syntax: OnEvent(string $event, callback $callback)
- - Usage: Runs the callback function when the specified event happens.<br/>
+ - Usage: Runs the callback function when the specified event happens. <br/>
    (Actually, it is when the bot program recieves the event from the Gateway API.)
- - Example: <br/>
-   ![image](https://github.com/Xero-L/DiscordPHP/assets/147680492/575a4c45-e5aa-41db-9914-d3bced251f4d)
+ - Example:
 
-<h3>run()</h3>
+```php
+    $client = new \Discord;
+    $client->OnEvent("Ready", function($data){
+    var_dump($data);
+    });
+```
+
+### run()
 
  - Syntax: run()
  - Usage: Initiates and runs the bot, using Gateway API.
@@ -44,23 +50,29 @@
    Every code after this function may get ignored or cause errors.
 
 
-<h1>Discord\AppCommand</h1>
+# Discord\AppCommand
 
-<h2>Attributes</h2>
+## Attributes
 
- - id : <b>[string|snowflake]</b> Unique ID of command
- - type : <b>[int|Application Command Type]</b> Type of command, defaults to 1
- - application_id : <b>[string|snowflake]</b> ID of the parent application
- - guild_id : <b>[string|snowflake]</b> Guild ID of the command, if not global
- - name: <b>[string]</b> 	Name of command, 1-32 characters. Must match the following regex:
-   <b>^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$</b>
- - name_localizations : <b>[dictionary|Available Locales]</b> Localization dictionary for name field. Values follow the same restrictions as name
- - description : <b>[string]</b> Description for CHAT_INPUT commands, 1-100 characters. Empty string for USER and MESSAGE commands
- - description_localization : <b>[dictionary|Available Locales]</b> Localization dictionary for description field. Values follow the same restrictions as description
- - options : <b>[array|Application Command Option]</b> Parameters for the command, max of 25. Only valid for CHAT_INPUT app commands.
- - default_member_permissions : <b>[string]</b> Set of permissions represented as a bit set. To disable the command for everyone except admins by default, set this attribute value to "0".
- - dm_permission : <b>[bool]</b> Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
- - nsfw : <b>[bool]</b> Indicates whether the command is age-restricted, defaults to false
- - version : <b>[string|snowflake]</b> Autoincrementing version identifier updated during substantial record changes
+ - id : **[string|snowflake]** Unique ID of command
+ - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults to 1
+ - application_id : **[string|snowflake]** ID of the parent application
+ - guild_id : **[string|snowflake]** Guild ID of the command, if not global
+ - name: **[string]** 	Name of command, 1-32 characters. Must match the following regex:
+   **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
+ - name_localizations : **[dictionary|[Available Locales](#locales)]** Localization dictionary for name field. Values follow the same restrictions as name
+ - description : **[string]** Description for CHAT_INPUT commands, 1-100 characters. Empty string for USER and MESSAGE commands
+ - description_localization : **[dictionary|[Available Locales](#locales)]** Localization dictionary for description field. Values follow the same restrictions as description
+ - options : **[array|Application Command Option]** Parameters for the command, max of 25. Only valid for CHAT_INPUT app commands.
+ - default_member_permissions : **[string]** Set of permissions represented as a bit set. To disable the command for everyone except admins by default, set this attribute value to "0".
+ - dm_permission : **[bool]** Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
+ - nsfw : **[bool]** Indicates whether the command is age-restricted, defaults to false
+ - version : **[string|snowflake]** Autoincrementing version identifier updated during substantial record changes
 
-<h2></h2>
+## Special Values
+
+### [Application Command Type]
+
+ - **[CHAT_INPUT | 1]** : Slash commands; a text-based command that shows up when a user types /
+ - **[USER | 2]** : A UI-based command that shows up when you right click or tap on a user
+ - **[MESSAGE | 3]** : A UI-based command that shows up when you right click or tap on a message
