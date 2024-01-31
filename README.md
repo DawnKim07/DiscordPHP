@@ -9,10 +9,6 @@
  - Since this class functions include some 'echo' functions, your PHP console can show some messages.
    If you want to get rid of them, you can delete their original 'echo' functions.
 
-## SubClasses
-
- - [Discord\AppCommand](#discord-appcommand)
-
 ## Setting Up
 
 ### Config File
@@ -27,6 +23,12 @@
 
  - This library contains the library 'ReactPHP'.
  - You can see more infos here: https://github.com/reactphp
+
+## SubClasses
+
+ - [Discord\AppCommand](#discord-appcommand)
+
+## Special Values
 
 ## Functions
 
@@ -73,7 +75,7 @@
 
 ## Special Values
 
-### [Application Command Type]
+### <a id="application-command-type">Application Command Type</a>
 
  - **[CHAT_INPUT | 1]** : Slash commands; a text-based command that shows up when a user types /
  - **[USER | 2]** : A UI-based command that shows up when you right click or tap on a user
