@@ -21,6 +21,11 @@
  - "token" means your Bot Token and "app_id" means your Bot Application ID. Both can be viewd at your Discord
    Developer Portal.
 
+<h3>Library Contained</h3>
+
+ - This library contains the library 'ReactPHP'.
+ - You can see more infos here: https://github.com/reactphp
+
 <h2>Functions</h2>
 
 <h3>OnEvent()</h3>
@@ -37,3 +42,25 @@
  - Usage: Initiates and runs the bot, using Gateway API.
  - Notice: You MUST execute this function at the very last of your php script.
    Every code after this function may get ignored or cause errors.
+
+
+<h1>Discord\AppCommand</h1>
+
+<h2>Attributes</h2>
+
+ - id : <b>[string|snowflake]</b> Unique ID of command
+ - type : <b>[int|Application Command Type]</b> Type of command, defaults to 1
+ - application_id : <b>[string|snowflake]</b> ID of the parent application
+ - guild_id : <b>[string|snowflake]</b> Guild ID of the command, if not global
+ - name: <b>[string]</b> 	Name of command, 1-32 characters. Must match the following regex:
+   <b>^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$</b>
+ - name_localizations : <b>[dictionary|Available Locales]</b> Localization dictionary for name field. Values follow the same restrictions as name
+ - description : <b>[string]</b> Description for CHAT_INPUT commands, 1-100 characters. Empty string for USER and MESSAGE commands
+ - description_localization : <b>[dictionary|Available Locales]</b> Localization dictionary for description field. Values follow the same restrictions as description
+ - options : <b>[array|Application Command Option]</b> Parameters for the command, max of 25. Only valid for CHAT_INPUT app commands.
+ - default_member_permissions : <b>[string]</b> Set of permissions represented as a bit set. To disable the command for everyone except admins by default, set this attribute value to "0".
+ - dm_permission : <b>[bool]</b> Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
+ - nsfw : <b>[bool]</b> Indicates whether the command is age-restricted, defaults to false
+ - version : <b>[string|snowflake]</b> Autoincrementing version identifier updated during substantial record changes
+
+<h2></h2>
