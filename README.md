@@ -208,7 +208,7 @@
 
 ### OnEvent()
 
- - Syntax: OnEvent(string $event, callback $callback)
+ - Syntax: **OnEvent(string $event, callback $callback)**
  - Usage: Runs the callback function when the specified event happens. <br/>
    (Actually, it is when the bot program recieves the event from the Gateway API.)
  - Example:
@@ -222,11 +222,22 @@
 
 ### run()
 
- - Syntax: run()
- - Usage: Initiates and runs the bot, using Gateway API.
- - Notice: You MUST execute this function at the very last of your php script.
-   Every code after this function may get ignored or cause errors.
+> You MUST execute this function at the very last of your php script.
+> Every code after this function may get ignored or cause errors.
 
+ - Syntax: **run()**
+ - Usage: Initiates and runs the bot, using Gateway API.
+
+# <a id="discord-dataformat-image">Discord\DataFormat\Image</a>
+
+## Function
+
+### set()
+
+> Whenever you use this function again and again, the file gets overwritten.
+
+ - Syntax : **set(string $FilePath)**
+ - Usage : Sets the class object as the selected image file. You can now pass the object itself as a parameter to upload image data.
 
 # <a id="discord-appcommand">Discord\AppCommand</a>
 
