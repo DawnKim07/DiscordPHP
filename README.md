@@ -126,6 +126,8 @@
    - Sticker
      - [Discord\Sticker]
      - [Discord\Sticker\Pack]
+   - Webhook
+     - [Discord\Webhook]
  - Guilds
    - Guild
      - [Discord\Guild]
