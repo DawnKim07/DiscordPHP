@@ -92,6 +92,29 @@
 
 # <a id="discord-appcommand">Discord\AppCommand</a>
 
+## Name Restrictions
+
+ - Your bot **cannot** have
+    - two global 'CHAT_INPUT' commands with the same name.
+    - two guild 'CHAT_INPUT' commands within the same name on the same guild.
+    - two global 'USER' commands with the same name.
+
+ - Your bot **can** have
+    - a global and guild 'CHAT_INPUT' command with the same name.
+    - a global 'CHAT_INPUT' and 'USER' command with the same name.
+    - same command same as other bots.
+    - up to 100 'CHAT_INPUT' commands, 5 'USER' commands, 5 'MESSAGE' commands within each scope(global and guild).
+
+## Rate Limits
+
+> There is global rate limit of 200 application command creates per day and per guild.
+
+## User Permission
+
+> When updating command permissions, the user must have the following permissions:
+> - Permission to Manage Guild and Manage Roles
+> - Permission to manage the resources affected(roles/users/channels)
+
 ## Attributes
 
  - id : **[string|snowflake]** Unique ID of command
@@ -120,6 +143,8 @@
 ## <a id="discord-appcommand-options">Discord\AppCommand\Options</a>
 
 ### Attributes
+
+> 'autocomplete' may not be set to 'true' if 'choices' are present.
 
  - type : **[int|[Application Command Option Type](#application-command-option-type)]** Type of option
  - name : **[string]** 	1-32 character name. Must match the following regex: **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
@@ -153,3 +178,9 @@
  - **"ATTACHMENT | 11"** : [Discord\Channel\Message\Attachments](#discord-channel-message-attachments) object
 
 ## <a id="discord-appcommand-options-choices">Discord\AppCommand\Options\Choices</a>
+
+### Attributes
+
+ - name : **[string]** 1-100 character choice name
+ - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the name field. Values follow the same restrictions as name
+ - value : **[string|int|float]** Value for the choice, up to 100 characters if string
