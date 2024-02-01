@@ -9,6 +9,33 @@
  - Since this class functions include some 'echo' functions, your PHP console can show some messages.
    If you want to get rid of them, you can delete their original 'echo' functions.
 
+## Help
+
+> The statements below are for PHP or programming beginners.
+> Advanced users are good to pass it.
+
+ - To use class internal functions, you must declare the intended class as an object using 'new' indicator, as below.
+```php
+    $appcmd = new \Discord\AppCommand
+```
+ - Then, you can use functions, get or set attributes of the class.
+```php
+    $appcmd->id = Null;
+        // sets the attribute 'id' as Null. This is done when you have to pass the object as a parameter.
+
+    $NewVariable = $appcmd->EventData;
+        // gets the attribute 'id' value. This is done when you recieve the data from Discord API, and you are free to use it!
+
+    $appcmd->get_global_list();
+        // executes the function 'get_global_list()'. 
+```
+ - Some Functions have parameters with '?' in front of its datatype. This means that the parameter is 'Nullable'. You can pass a value to the parameter or not, whatever you want.
+```php
+    $appcmd->get_global_list();
+    $appcmd->get_global_list(True);
+        // since the function's parameter 'with_localizations' is Nullable, both are valid to use.
+```
+
 ## Setting Up
 
 ### Config File
@@ -26,9 +53,16 @@
 
 ## SubClasses
 
- - [Discord\AppCommand](#discord-appcommand)
- - [Discord\AppCommand\Options](#discord-appcommand-options)
- - [Discord\AppCommand\Options\Choices](#discord-appcommand-options-choices)
+ - Interactions
+   - Application Command
+     - [Discord\AppCommand](#discord-appcommand)
+     - [Discord\AppCommand\Options](#discord-appcommand-options)
+     - [Discord\AppCommand\Options\Choices](#discord-appcommand-options-choices)
+   - Message Components
+     - [Discord\Channel\Message\Components](#discord-channel-message-components)
+     - [Discord\Channel\Message\Components\Buttons](#discord-channel-message-components-buttons)
+     - [Discord\Channel\Message\Components\SelectMenus](#discord-channel-message-components-selectmenus)
+     - [Discord\Channel\Message\Components\TextInputs](#discord-channel-message-components-textinputs)
 
 ## Special Values
 
@@ -92,7 +126,30 @@
 
 # <a id="discord-appcommand">Discord\AppCommand</a>
 
-## Name Restrictions
+## Types
+
+### Slash Commands
+
+ - Slash Commands refer to application commands with the 'CHAT_INPUT' type.
+ - You can set your slash commands to have subcommands or subcommand groups, which organize your commands and subcommands.
+ - Discord Official API organizes slash commands tree as below:
+   > Slash Commands > Subcommands Groups > Subcommand <br/>
+ - However, as it also represents, you are free to organize the tree however you'd like.
+ - If you set lower-level commands(such as Subcommands or Subcommand Groups), you cannot use your higher-level command alone.
+ - You **cannot** have Subcommand Group under another Subcommand Group or Subcommand. It **must** be right below Slash Commands.
+
+### User Commands
+
+ - User commands are application commands that appear on the context menu (right click or tap) of users.
+ - To use user commands, a user must have permissions to send text messages in the channel they invoke a user command in.
+ - 'description' attribute **must** be set to empty string("").
+
+### Message Commands
+
+ - Message commands are application commands that appear on the context menu (right click or tap) of messages.
+ - 'description' attribute **must** be set to empty string("").
+
+## <a id="discord-appcommand-namerestrictions">Name Restrictions</a>
 
  - Your bot **cannot** have
     - two global 'CHAT_INPUT' commands with the same name.
@@ -104,6 +161,9 @@
     - a global 'CHAT_INPUT' and 'USER' command with the same name.
     - same command same as other bots.
     - up to 100 'CHAT_INPUT' commands, 5 'USER' commands, 5 'MESSAGE' commands within each scope(global and guild).
+
+ - Your bot name **must** follow the following regex:
+   **<a id="appcommand-name-regex">"^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$"</a>**
 
 ## Rate Limits
 
@@ -121,8 +181,7 @@
  - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults to 1
  - application_id : **[string|snowflake]** ID of the parent application
  - guild_id : **[string|snowflake]** Guild ID of the command, if not global
- - name: **[string]** 	Name of command, 1-32 characters. Must match the following regex:
-   **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
+ - name: **[string]** 	Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex).
  - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for name field. Values follow the same restrictions as name
  - description : **[string]** Description for CHAT_INPUT commands, 1-100 characters. Empty string for USER and MESSAGE commands
  - description_localization : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for description field. Values follow the same restrictions as description
@@ -147,7 +206,7 @@
 > 'autocomplete' may not be set to 'true' if 'choices' are present.
 
  - type : **[int|[Application Command Option Type](#application-command-option-type)]** Type of option
- - name : **[string]** 	1-32 character name. Must match the following regex: **^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$**
+ - name : **[string]** 	1-32 character name. Must match the [Name Restriction Regex](#appcommand-name-regex)
  - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the name field. Values follow the same restrictions as name
  - description : **[string]** 1-100 character description
  - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the description field. Values follow the same restrictions as description
@@ -184,3 +243,81 @@
  - name : **[string]** 1-100 character choice name
  - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the name field. Values follow the same restrictions as name
  - value : **[string|int|float]** Value for the choice, up to 100 characters if string
+
+## Functions
+
+### <a id="discord-appcommand-f-get-global-list">get_global_list()</a>
+
+ - Syntax : get_global_list(bool ?$with_localizations)
+ - Usage : Fetches all of the global commands for your bot application. Returns an array of [Discord\AppCommand](#discord-appcommand) objects. 
+ - Parameters :
+    - with_localizations : **[bool]** whether to include full localization dictionaries('name_localizations' and 'description_localizations'). Default to 'False'.
+
+### <a id = "discord-appcommand-f-create-global">create_global()</a>
+
+> Creating a command with the same name as an existing command for your bot will overwrite the old command. See more infos in [Name Restrictions](#discord-appcommand-namerestrictions)
+
+ - Syntax : create_globals(string $name, ?array name_localizations, ?string $description, ?array description_localizations, ?array $options, ?string $default_member_permissions, ?bool $dm_permission, ?int $type, ?bool $nsfw)
+ - Usage : Create a new global command. The function returns HTTP Staus Code. If '201' a new command is successfully created, and if '200' the existed command with the same name was overwritten. Sets the class object's attribute as [Discord\AppCommand](#discord-appcommand) object's attribute.
+ - Parameters :
+    - name : **[string]** Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex)
+    - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'name' field. Values follow the same restrictions as name.
+    - description : **[string]** 1-100 character description for 'CHAT_INPUT' commands.
+    - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'description' field. Values follow the same restrictions as 'description'.
+    - options : **[array]** Array of [Discord\AppCommand\Options](#discord-appcommand-options) objects. The parameters for the command.
+    - default_member_permissions : **[string]** Set of [Permissions](#permissions) represented as a bit set.
+    - dm_permission : **[bool]** Indicates whether command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
+    - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults '1' if not set.
+    - nsfw : **[bool]** Indicates whether the command is age-restricted.
+  
+### get_global()
+
+ - Syntax : get_global(string $command_id)
+ - Usage : Fetch a global command for your bot. Returns an [Discord\AppCommand](#discord-appcommand) object.
+ - Parameters :
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_global_list()](#discord-appcommand-f-get-global-list) or [create_global()](#discord-appcommand-f-create-global).
+
+### edit_global()
+
+> The following accords to parameters except 'command_id'.
+> If you provide any parameter, although some are passed as 'Null', all fields will entirely be overwritten.
+
+ - Syntax : edit_global(string $command_id, ?string $name, ?array $name_localizations, ?string $description, ?array $description_localizations, ?array $options, ?string $default_member_permissions, ?bool $dm_permission, ?bool $default_permission, ?bool $nsfw)
+ - Usage : Edit a global command. Returns HTTP Status Code '200' if successful. Sets the class object's attributes as [Discord\AppCommand] object's attributes.
+ - Parameters :
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_global_list()](#discord-appcommand-f-get-global-list) or [create_global()](#discord-appcommand-f-create-global).
+    - name : **[string]** Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex)
+    - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'name' field. Values follow the same restrictions as name.
+    - description : **[string]** 1-100 character description for 'CHAT_INPUT' commands.
+    - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'description' field. Values follow the same restrictions as 'description'.
+    - options : **[array]** Array of [Discord\AppCommand\Options](#discord-appcommand-options) objects. The parameters for the command.
+    - default_member_permissions : **[string]** Set of [Permissions](#permissions) represented as a bit set.
+    - dm_permission : **[bool]** Indicates whether command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
+    - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults '1' if not set.
+    - nsfw : **[bool]** Indicates whether the command is age-restricted.
+  
+### delete_global()
+
+ - Syntax : delete_global(string $command_id)
+ - Usage : Deletes a global command. Returns the HTTP Status Code '204' on success.
+ - Parameters :
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_global_list()](#discord-appcommand-f-get-global-list) or [create_global()](#discord-appcommand-f-create-global).
+
+### Overwrite Global Application Commands
+
+> This method is consisted of sets of functions. You must follow the following steps:
+> 1. Use enough add_global() functions you want to overwrite.
+> 2. Execute overwrite_global() function to overwrite all global application commands with your added commands.
+> - Be sure to execute overwrite_global() function after all command adding is done! All commands after the execution would be ignored.
+> - Your all existing global application commands would be overwritten.
+
+#### add_global()
+
+ - Syntax : add_global(string $name, ?array $name_localizations, ?string $description, ?array $description_localizations, ?array $options, ?string $default_member_permissions, ?bool $dm_permission, ?int $type, ?bool $nsfw)
+ - Usage : Adds your application command to the overwrite request queue list.
+ - Parameters : Exactly same as [create_global()](#discord-appcommand-f-create-global) function of this class. See the link above for further information.
+
+#### overwrite_global()
+
+ - Syntax : overwrite_global()
+ - Usage : Runs the overwrite request queue. Returns a dictionary with two keys('code' and 'data'). The key 'code' includes the HTTP Status Code '200' on success. Another key 'data' contains an array of [Discord\AppCommand](#discord-appcommand) objects.
