@@ -53,6 +53,9 @@
 
 ## SubClasses
 
+ - Reference
+   - API Reference
+     - [Discord\DataFormat\Image]
  - Interactions
    - Application Command
      - [Discord\AppCommand](#discord-appcommand)
@@ -61,32 +64,108 @@
    - Message Components
      - [Discord\Channel\Message\Components](#discord-channel-message-components)
      - [Discord\Channel\Message\Components\Buttons](#discord-channel-message-components-buttons)
-     - [Discord\Channel\Message\Components\SelectMenus](#discord-channel-message-components-selectmenus)
      - [Discord\Channel\Message\Components\TextInputs](#discord-channel-message-components-textinputs)
+     - [Discord\Channel\Message\Components\SelectMenus](#discord-channel-message-components-selectmenus)
    - Common Interaction
      - [Discord\Interaction]
-     - [Discord\Interaction\Response]
-     - [Discord\Interaction\Response\Messages]
-     - [Discord\Interaction\Response\AutoComplete]
-     - [Discord\Interaction\Response\Modal]
      - [Discord\Interaction\Data\AppCommandData]
      - [Discord\Interaction\Data\AppCommandData\Option]
      - [Discord\Interaction\Data\MessageComponentData]
      - [Discord\Interaction\Data\ModalSubmitData]
      - [Discord\Interaction\Data\ResolvedData]
+     - [Discord\Interaction\Response]
+     - [Discord\Interaction\Response\AutoComplete]
+     - [Discord\Interaction\Response\Messages]
+     - [Discord\Interaction\Response\Modal]
    - Message Interaction
      - [Discord\MessageInteraction]
+ - Applications
+   - Application
+     - [Discord\Application]
+     - [Discord\Application\InstallParams]
+   - Application Role Connection
+     - [Discord\Application\RoleConnection]
+     - [Discord\Application\RoleConnection\Metadata]
+ - Users
+   - User
+     - [Discord\User]
+     - [Discord\User\ApplicationRoleConnection]
+     - [Discord\User\ApplicationRoleConnection\Metadata]
+     - [Discord\User\Connection]
+ - Channels
+   - Channel
+     - [Discord\Channel]
+     - [Discord\Channel\ArchivedThreads]
+     - [Discord\Channel\DefaultReaction]
+     - [Discord\Channel\FollowedChannel]
+     - [Discord\Channel\ForumTag]
+     - [Discord\Channel\Overwrite]
+     - [Discord\Channel\ThreadMember]
+   - StageInstance
+     - [Discord\StageInstance]
+ - Messages
+   - Message
+     - [Discord\Channel\Message]
+     - [Discord\Channel\Message\AllowedMentions]
+     - [Discord\Channel\Message\Attachments]
+     - [Discord\Channel\Message\Components]
+     - [Discord\Channel\Message\Components\Buttons]
+     - [Discord\Channel\Message\Components\SelectMenus]
+     - [Discord\Channel\Message\Components\TextInputs]
+     - [Discord\Channel\Message\Embeds]
+     - [Discord\Channel\Message\Embeds\Author]
+     - [Discord\Channel\Message\Embeds\Fields]
+     - [Discord\Channel\Message\Embeds\Footer]
+     - [Discord\Channel\Message\Embeds\Image]
+     - [Discord\Channel\Message\Embeds\Provider]
+     - [Discord\Channel\Message\Embeds\Thumbnail]
+     - [Discord\Channel\Message\Embeds\Video]
+     - [Discord\Channel\Message\Reference]
+   - Emoji
+     - [Discord\Emoji]
+   - Sticker
+     - [Discord\Sticker]
+     - [Discord\Sticker\Pack]
  - Guilds
    - Guild
      - [Discord\Guild]
-     - [Discord\Guild\Member]
+     - [Discord\Guild\Ban]
      - [Discord\Guild\GuildOnboarding]
+     - [Discord\Guild\GuildOnboarding\Prompts]
+     - [Discord\Guild\GuildOnboarding\Prompts\Options]
+     - [Discord\Guild\Integration]
+     - [Discord\Guild\Integration\Account]
+     - [Discord\Guild\Integration\Application]
+     - [Discord\Guild\Member]
+     - [Discord\Guild\Preview]
+     - [Discord\Guild\Prune]
+     - [Discord\Guild\Role]
+     - [Discord\Guild\WelcomeScreen]
+     - [Discord\Guild\WelcomeScreen\Channel]
+     - [Discord\Guild\Widget]
+     - [Discord\Guild\WidgetSettings]
    - AuditLog
      - [Discord\AuditLog]
      - [Discord\AuditLog\Change]
      - [Discord\AuditLog\Entry]
      - [Discord\AuditLog\Entry\OptionalInfo]
-   
+   - AutoModeration
+     - [Discord\AutoModeration\Action]
+     - [Discord\AutoModeration\Action\Metadata]
+     - [Discord\AutoModeration\Rule]
+     - [Discord\AutoModeration\Rule\TriggerMetadata]
+   - Guild Scheduled Event
+     - [Discord\GuildScheduledEvent]
+     - [Discord\GuildScheduledEvent\EntityMetadata]
+     - [Discord\GuildScheduledEvent\User]
+   - Guild Template
+     - [Discord\GuildTemplate]
+   - Invite
+     - [Discord\Invite]
+     - [Discord\Invite\InviteMetadata]
+   - Voice
+     - [Discord\Voice\Region]
+       
 ## Special Values
 
 ### <a id="locales">Locales [string]</a>
