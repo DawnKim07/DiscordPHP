@@ -1,0 +1,8 @@
+Need to update:
+
+1. AppCommand Permission Update Endpoint
+PUT request must be added using Bearer token. 
+(with, applications.commands.permissions.update scope)
+
+2. AppCommand Permissions Object
+Add it as a subclass.
