@@ -63,7 +63,30 @@
      - [Discord\Channel\Message\Components\Buttons](#discord-channel-message-components-buttons)
      - [Discord\Channel\Message\Components\SelectMenus](#discord-channel-message-components-selectmenus)
      - [Discord\Channel\Message\Components\TextInputs](#discord-channel-message-components-textinputs)
-
+   - Common Interaction
+     - [Discord\Interaction]
+     - [Discord\Interaction\Response]
+     - [Discord\Interaction\Response\Messages]
+     - [Discord\Interaction\Response\AutoComplete]
+     - [Discord\Interaction\Response\Modal]
+     - [Discord\Interaction\Data\AppCommandData]
+     - [Discord\Interaction\Data\AppCommandData\Option]
+     - [Discord\Interaction\Data\MessageComponentData]
+     - [Discord\Interaction\Data\ModalSubmitData]
+     - [Discord\Interaction\Data\ResolvedData]
+   - Message Interaction
+     - [Discord\MessageInteraction]
+ - Guilds
+   - Guild
+     - [Discord\Guild]
+     - [Discord\Guild\Member]
+     - [Discord\Guild\GuildOnboarding]
+   - AuditLog
+     - [Discord\AuditLog]
+     - [Discord\AuditLog\Change]
+     - [Discord\AuditLog\Entry]
+     - [Discord\AuditLog\Entry\OptionalInfo]
+   
 ## Special Values
 
 ### <a id="locales">Locales [string]</a>
