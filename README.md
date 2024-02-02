@@ -372,7 +372,7 @@
 
 > Creating a command with the same name as an existing command for your bot will overwrite the old command. See more infos in [Name Restrictions](#discord-appcommand-namerestrictions)
 
- - Syntax : create_globals(string $name, ?array name_localizations, ?string $description, ?array description_localizations, ?array $options, ?string $default_member_permissions, ?bool $dm_permission, ?int $type, ?bool $nsfw)
+ - Syntax : create_global(string $name, ?array name_localizations, ?string $description, ?array description_localizations, ?array $options, ?string $default_member_permissions, ?bool $dm_permission, ?int $type, ?bool $nsfw)
  - Usage : Create a new global command. The function returns HTTP Staus Code. If '201' a new command is successfully created, and if '200' the existed command with the same name was overwritten. Sets the class object's attribute as [Discord\AppCommand](#discord-appcommand) object's attribute.
  - Parameters :
     - name : **[string]** Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex)
@@ -436,3 +436,164 @@
 
  - Syntax : overwrite_global()
  - Usage : Runs the overwrite request queue. Returns a dictionary with two keys('code' and 'data'). The key 'code' includes the HTTP Status Code '200' on success. Another key 'data' contains an array of [Discord\AppCommand](#discord-appcommand) objects.
+
+### <a id="discord-appcommand-f-get-guild-list">get_guild_list()</a>
+
+ - Syntax : get_guild_list(string $guild_id, bool ?$with_localizations)
+ - Usage : Fetches all of the guild commands for your bot application. Returns an array of [Discord\AppCommand](#discord-appcommand) objects. 
+ - Parameters :
+    - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+    - with_localizations : **[bool]** whether to include full localization dictionaries('name_localizations' and 'description_localizations'). Default to 'False'.
+
+### <a id = "discord-appcommand-f-create-guild">create_guild()</a>
+
+> Creating a command with the same name as an existing command for your bot will overwrite the old command. See more infos in [Name Restrictions](#discord-appcommand-namerestrictions)
+
+ - Syntax : create_guild(string $guild_id, string $name, ?array name_localizations, ?string $description, ?array description_localizations, ?array $options, ?string $default_member_permissions, ?int $type, ?bool $nsfw)
+ - Usage : Create a new guild command. The function returns HTTP Staus Code. If '201' a new command is successfully created, and if '200' the existed command with the same name was overwritten. Sets the class object's attribute as [Discord\AppCommand](#discord-appcommand) object's attribute.
+ - Parameters :
+    - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+    - name : **[string]** Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex)
+    - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'name' field. Values follow the same restrictions as name.
+    - description : **[string]** 1-100 character description for 'CHAT_INPUT' commands.
+    - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'description' field. Values follow the same restrictions as 'description'.
+    - options : **[array]** Array of [Discord\AppCommand\Options](#discord-appcommand-options) objects. The parameters for the command.
+    - default_member_permissions : **[string]** Set of [Permissions](#permissions) represented as a bit set.
+    - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults '1' if not set.
+    - nsfw : **[bool]** Indicates whether the command is age-restricted.
+  
+### get_guild()
+
+ - Syntax : get_guild(string $guild_id, string $command_id)
+ - Usage : Fetch a guild command for your bot. Returns an [Discord\AppCommand](#discord-appcommand) object.
+ - Parameters :
+    - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_guild_list()](#discord-appcommand-f-get-guild-list) or [create_guild()](#discord-appcommand-f-create-guild).
+
+### edit_guild()
+
+> The following accords to parameters except 'command_id'.
+> If you provide any parameter, although some are passed as 'Null', all fields will entirely be overwritten.
+
+ - Syntax : edit_guild(string $guild_id, string $command_id, ?string $name, ?array $name_localizations, ?string $description, ?array $description_localizations, ?array $options, ?string $default_member_permissions, ?bool $default_permission, ?bool $nsfw)
+ - Usage : Edit a guild command. Returns HTTP Status Code '200' if successful. Sets the class object's attributes as [Discord\AppCommand] object's attributes.
+ - Parameters :
+    - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_global_list()](#discord-appcommand-f-get-global-list) or [create_global()](#discord-appcommand-f-create-global).
+    - name : **[string]** Name of command, 1-32 characters. Must match the [Name Restriction Regex](#appcommand-name-regex)
+    - name_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'name' field. Values follow the same restrictions as name.
+    - description : **[string]** 1-100 character description for 'CHAT_INPUT' commands.
+    - description_localizations : **[dictionary]** Dictionary with [Available Locales](#locales) keys. Localization dictionary for the 'description' field. Values follow the same restrictions as 'description'.
+    - options : **[array]** Array of [Discord\AppCommand\Options](#discord-appcommand-options) objects. The parameters for the command.
+    - default_member_permissions : **[string]** Set of [Permissions](#permissions) represented as a bit set.
+    - type : **[int|[Application Command Type](#application-command-type)]** Type of command, defaults '1' if not set.
+    - nsfw : **[bool]** Indicates whether the command is age-restricted.
+  
+### delete_guild()
+
+ - Syntax : delete_guild(string $guild_id, string $command_id)
+ - Usage : Deletes a guild command. Returns the HTTP Status Code '204' on success.
+ - Parameters :
+    - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+    - command_id : **[string|snowflake]** The ID of your command, generated when you created one. You can get it from responses of functions [get_global_list()](#discord-appcommand-f-get-global-list) or [create_global()](#discord-appcommand-f-create-global).
+
+### Overwrite Guild Application Commands
+
+> This method is consisted of sets of functions. You must follow the following steps:
+> 1. Use enough add_guild() functions you want to overwrite.
+> 2. Execute overwrite_guild() function to overwrite all guild application commands with your added commands.
+> - Be sure to execute overwrite_guild() function after all command adding is done! All commands after the execution would be ignored.
+> - Your all existing guild application commands would be overwritten.
+
+#### add_guild()
+
+ - Syntax : add_guild(string $name, ?array $name_localizations, ?string $description, ?array $description_localizations, ?array $options, ?string $default_member_permissions, ?int $type, ?bool $nsfw)
+ - Usage : Adds your application command to the overwrite request queue list.
+ - Parameters : Exactly same as [create_guild()](#discord-appcommand-f-create-guild) function of this class. See the link above for further information.
+
+#### overwrite_global()
+
+ - Syntax : overwrite_global(string $guild)
+ - Usage : Runs the overwrite request queue. Returns a dictionary with two keys('code' and 'data'). The key 'code' includes the HTTP Status Code '200' on success. Another key 'data' contains an array of [Discord\AppCommand](#discord-appcommand) objects.
+ - Parameters :
+   - guild_id : **[string|snowflake]** The guild ID you'd like to perform the bot.
+
+# <a id="discord-channel-message-components">Discord\Channel\Message\Components</a>
+
+## Main Concept
+
+ - Message Components(called 'Compenents' below) are a framework for adding interactive elements to the messages your app or bot sends.
+ - Components are of a field on the [Discord\Channel\Message] object.
+ - There are 'Component Containers' used to include components.
+
+## Custom ID
+
+> Every components must have a custom ID(as parameters, 'custom_id') except for special cases.
+
+ - Custom IDs are free to be defined by you just as it is 'custom'.
+ - Custom IDs are used to indicate the right component when interacting.
+
+## <a id="discord-channel-message-components-buttons">Discord\Channel\Message\Components\Buttons</a>
+
+### Concepts
+
+> This Subclass itself is used as a pack of buttons.
+
+ - Buttons are displayed under messages, and you can interact by clicking them.
+ - There are 5 styles of buttons: <br/>
+   ![image](https://github.com/Xero-L/DiscordPHP/assets/147680492/e1128e13-df02-4c96-96bc-cd786aa2030b)
+ - On every button click, your bot will receive an [Discord\Interaction](#discord-interaction) object.
+
+### Functions
+
+#### add()
+
+> - You can use this function up to 5 times before you use [set()] function of Discord\Channel\Message\Components class.
+> - Non-link buttons **must** have a 'custom_id', and **must not** have a 'url'.
+> - Link buttons **must** have a 'url', and **must not** have a 'custom_id'.
+> - Link buttons do not send an interaction to your bot when clicked.
+
+ - Syntax : **add(int $style, ?string $label, ?\Discord\Emoji $emoji, ?string $custom_id, ?string $url, ?bool $disabled)**
+ - Usage : Adds a button to the current object.
+ - Parameters :
+   - style : **[int|[Button Style](#button-style)]** A button style
+   - label : **[string]** Text that appears on the button; max 80 characters
+   - emoji : **[[Discord\Emoji](#discord-emoji)]** Partial object('name', 'id', and 'animated' needed only).
+   - custom_id : **[string]** Developer-defined identifier for the button; max 100 characters
+   - url : **[string]** 	URL for link-style buttons
+   - disabled : **[bool]** Whether the button is disabled (defaults to false)
+  
+### Special Values
+
+#### Button Styles
+
+ - **"Primary | 1"** : blurple colored
+ - **"Secondary | 2"** : grey colored
+ - **"Success | 3"** : green colored
+ - **"Danger | 4"** : red colored
+ - **"Link | 5"** : grey colored, navigates to a URL
+
+## <a id="discord-channel-message-components-selectmenus">Discord\Channel\Message\Components\SelectMenus</a>
+
+### Concepts
+
+ - Select Menus provide options from a dropdown list in messages.
+ - You can prompt a user to choose just one item from the list, or it can be fine to choose multiple ones.
+ - There are 5 different select menus:
+   - 'String Select Menu' allows you to define the options that appear in the list.
+   - Other select menus(users, roles, mentionables, and channels) are auto-populated.
+
+## <a id="discord-channel-message-components-textinputs">Discord\Channel\Message\Components\TextInputs</a>
+
+### Concepts
+
+ - Text Inputs are used to collect short or long formed texts.
+
+## Functions
+
+### add()
+
+> You must pass at least one parameter among three to use this function.
+
+ - Syntax : **add(?\Discord\Channel\Message\Components\Buttons $buttons, ?\Discord\Channel\Message\Components\SelectMenus $select_menus, ?\Discord\Channel\Message\Components\TextInputs $text_inputs)**
+ - Usage : Adds all subcomponents to a container, and also adds the container to the queue.
